@@ -52,6 +52,12 @@ ExportedObj/
 *.pdb.meta
 *.mdb.meta
 
+# Zim generated meta files
+*.txt.meta
+*.zim.meta
+/[Aa]ssets/GameJamWiki/*.meta
+/[Aa]ssets/GameJamWiki.meta
+
 # Unity3D generated file on crash reports
 sysinfo.txt
 
