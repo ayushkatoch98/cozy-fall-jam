@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class CharacterIdleState : CharacterBaseState
 {
@@ -7,18 +8,26 @@ public class CharacterIdleState : CharacterBaseState
 
     public override void EnterState()
     {
-        
+        Debug.Log("in idle state");
     }
 
     public override void UpdateState()
     {
-        if (stateMachine.horizontalInput >= 0 || stateMachine.verticalInput >= 0)
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if (verticalInput != 0 || horizontalInput != 0)
         {
             stateMachine.ChangeState(new CharacterWalkState(stateMachine));
         }
-        else if ((stateMachine.horizontalInput >= 0 || stateMachine.verticalInput >= 0) && Input.GetKey(stateMachine.sprintKey))
+        else if (verticalInput != 0 || horizontalInput != 0 && Input.GetKey(stateMachine.sprintKey))
         {
             stateMachine.ChangeState(new CharacterRunState(stateMachine));
+        }
+
+        if (Input.GetKeyDown(stateMachine.jumpKey))
+        {
+            stateMachine.ChangeState(new CharacterJumpState(stateMachine));
         }
     }
 

@@ -1,4 +1,6 @@
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 public class CharacterStateMachine : MonoBehaviour
 {
@@ -6,21 +8,25 @@ public class CharacterStateMachine : MonoBehaviour
 
     [Header("Stats")]
     public float walkSpeed;
-    public float sprintSpeed;
+    public float runSpeed;
     public float jumpPower;
     [Space]
     public int amountOfJumps;
+    public int currentAmountOfJumps;
 
     [Header("Controls")]
     public KeyCode jumpKey;
     public KeyCode sprintKey;
     public KeyCode crouchKey;
+    [Space]
+    public ParticleSystem landingParticleSystem;
+    public bool isGrounded;
+    public bool hardLanding;
 
     [HideInInspector] public Rigidbody characterRigidbody;
     [HideInInspector] public Collider characterCollider;
 
-    [HideInInspector] public float verticalInput;
-    [HideInInspector] public float horizontalInput;
+    private Vector3 velocityXZ;
 
     private void Start()
     {
@@ -48,18 +54,34 @@ public class CharacterStateMachine : MonoBehaviour
 
     public void HandleMoving(float speed)
     {
-        float verticalInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
 
         Vector3 moveDirection = (transform.forward * verticalInput + transform.right * horizontalInput).normalized;
-        Vector3 moveVelocity = moveDirection * speed;
+        Vector3 moveSpeed = moveDirection * speed;
 
-        characterRigidbody.velocity = moveVelocity;
+        float currentSpeed = characterRigidbody.velocity.magnitude;
+
+        if (currentSpeed < speed)
+        {
+            characterRigidbody.AddForce(moveSpeed / 40, ForceMode.VelocityChange);
+        }
     }
 
-    public bool IsGrounded()
+
+    private void OnCollisionEnter(Collision collision)
     {
-        float raycastDistance = 0.05f;
-        return Physics.Raycast(transform.position, Vector3.down, raycastDistance);
+        if (collision.gameObject.layer == 6)
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == 6)
+        {
+            isGrounded = false;
+        }
     }
 }

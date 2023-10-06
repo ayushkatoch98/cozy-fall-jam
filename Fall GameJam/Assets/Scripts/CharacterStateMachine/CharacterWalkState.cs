@@ -6,14 +6,26 @@ public class CharacterWalkState : CharacterBaseState
 
     public override void EnterState()
     {
-        
+
     }
 
     public override void UpdateState()
     {
         stateMachine.HandleMoving(stateMachine.walkSpeed);
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        if (stateMachine.verticalInput <= 0 || stateMachine.horizontalInput <= 0)
+        if (Input.GetKey(stateMachine.sprintKey))
+        {
+            stateMachine.ChangeState(new CharacterRunState(stateMachine));
+        }
+
+        if (Input.GetKeyDown(stateMachine.jumpKey))
+        {
+            stateMachine.ChangeState(new CharacterJumpState(stateMachine));
+        }
+
+        if (verticalInput == 0 && horizontalInput == 0)
         {
             stateMachine.ChangeState(new CharacterIdleState(stateMachine));
         }
