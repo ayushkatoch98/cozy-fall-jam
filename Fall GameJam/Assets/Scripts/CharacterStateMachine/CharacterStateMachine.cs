@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
@@ -21,6 +22,8 @@ public class CharacterStateMachine : MonoBehaviour
     [Space]
     public ParticleSystem landingParticleSystem;
     public ParticleSystem jumpParticleSystem;
+    [Space]
+    public float fovTransitionSpeed;
     public bool isGrounded;
     public bool hardLanding;
 
@@ -55,7 +58,7 @@ public class CharacterStateMachine : MonoBehaviour
         currentState.EnterState();
     }
 
-    public void HandleMoving(float speed, float acceleration)
+    public void HandleMoving(float speed)
     {
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -67,14 +70,29 @@ public class CharacterStateMachine : MonoBehaviour
 
         if (currentSpeed < speed)
         {
-            characterRigidbody.AddForce(moveSpeed / acceleration, ForceMode.VelocityChange);
+            characterRigidbody.AddForce(moveSpeed / 50, ForceMode.VelocityChange);
         }
     }
 
+    private IEnumerator ChangeFOV(float startFOV, float targetFOV)
+    {
+        float elapsedTime = 0;
+
+        while (elapsedTime < fovTransitionSpeed)
+        {
+            float currentFOV = Mathf.Lerp(startFOV, targetFOV, elapsedTime / fovTransitionSpeed);
+            Camera.main.fieldOfView = currentFOV;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Camera.main.fieldOfView = targetFOV;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 6)
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
@@ -82,7 +100,7 @@ public class CharacterStateMachine : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.layer == 6)
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
         }

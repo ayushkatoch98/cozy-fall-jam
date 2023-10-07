@@ -17,11 +17,11 @@ public class CharacterJumpState : CharacterBaseState
     {
         if (Input.GetKey(stateMachine.sprintKey))
         {
-            stateMachine.HandleMoving(stateMachine.runSpeed, 15);
+            stateMachine.HandleMoving(stateMachine.runSpeed);
         }
         else
         {
-            stateMachine.HandleMoving(stateMachine.walkSpeed, 20);
+            stateMachine.HandleMoving(stateMachine.walkSpeed);
         }
 
         if (stateMachine.isGrounded)
@@ -38,7 +38,7 @@ public class CharacterJumpState : CharacterBaseState
         else if (!stateMachine.isGrounded)
         {
             Vector3 rbVelocity = stateMachine.characterRigidbody.velocity;
-            if (rbVelocity.y <= -10)
+            if (rbVelocity.y <= -20)
             {
                 stateMachine.hardLanding = true;
             }
