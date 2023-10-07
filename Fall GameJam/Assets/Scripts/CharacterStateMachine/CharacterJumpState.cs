@@ -9,8 +9,8 @@ public class CharacterJumpState : CharacterBaseState
 
     public override void EnterState()
     {
-        stateMachine.isGrounded = false;
         Jump(1);
+        stateMachine.isGrounded = false;
     }
 
     public override void UpdateState()
@@ -68,7 +68,8 @@ public class CharacterJumpState : CharacterBaseState
         {
             stateMachine.ChangeState(new CharacterWalkState(stateMachine));
         }
-        else if ((verticalInput != 0 || horizontalInput != 0) && Input.GetKey(stateMachine.sprintKey))
+
+        if (Input.GetKey(stateMachine.sprintKey) && (verticalInput != 0 || horizontalInput != 0))
         {
             stateMachine.ChangeState(new CharacterRunState(stateMachine));
         }

@@ -8,8 +8,8 @@ public class CharacterRunState : CharacterBaseState
 
     public override void EnterState()
     {
-        stateMachine.StopAllCoroutines();
-        stateMachine.StartCoroutine(stateMachine.ChangeFOV(Camera.main.fieldOfView, 90));
+        //stateMachine.StopAllCoroutines();
+        //stateMachine.StartCoroutine(stateMachine.ChangeFOV(Camera.main.fieldOfView, 90));
         stateMachine.runParticleSystem.Play();
     }
 
@@ -19,6 +19,15 @@ public class CharacterRunState : CharacterBaseState
 
         float verticalInput = Input.GetAxisRaw("Vertical");
         float horizontalInput = Input.GetAxisRaw("Horizontal");
+        
+        if (!stateMachine.isGrounded && stateMachine.runParticleSystem.isPlaying)
+        {
+            stateMachine.runParticleSystem.Stop();
+        }
+        else if (stateMachine.isGrounded && !stateMachine.runParticleSystem.isPlaying)
+        {
+            stateMachine.runParticleSystem.Play();
+        }
 
         if (Input.GetKeyDown(stateMachine.jumpKey) && stateMachine.isGrounded)
         {
@@ -30,16 +39,17 @@ public class CharacterRunState : CharacterBaseState
             stateMachine.ChangeState(new CharacterIdleState(stateMachine));
         }
 
-        if (!Input.GetKey(stateMachine.sprintKey) && verticalInput != 0 || horizontalInput != 0)
+        if (!Input.GetKey(stateMachine.sprintKey) && (verticalInput != 0 || horizontalInput != 0))
         {
             stateMachine.ChangeState(new CharacterWalkState(stateMachine));
         }
+
     }
 
     public override void ExitState()
     {
-        stateMachine.StopAllCoroutines();
-        stateMachine.StartCoroutine(stateMachine.ChangeFOV(Camera.main.fieldOfView, 70));
+        //stateMachine.StopAllCoroutines();
+        //stateMachine.StartCoroutine(stateMachine.ChangeFOV(Camera.main.fieldOfView, 70));
         stateMachine.runParticleSystem.Stop();
     }
 }
