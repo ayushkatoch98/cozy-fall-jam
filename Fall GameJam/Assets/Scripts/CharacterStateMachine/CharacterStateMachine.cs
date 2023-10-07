@@ -46,6 +46,7 @@ public class CharacterStateMachine : MonoBehaviour
     private void Update()
     {
         currentState.UpdateState();
+        Debug.Log(currentState);
     }
 
     public void ChangeState(CharacterBaseState newState)
