@@ -21,12 +21,14 @@ public class CharacterStateMachine : MonoBehaviour
     public KeyCode sprintKey;
     public KeyCode crouchKey;
     [Space]
+    [SerializeField] private Material particleMaterial;
     public ParticleSystem landingParticleSystem;
     public ParticleSystem jumpParticleSystem;
+    public ParticleSystem runParticleSystem;
     [Space]
     public float fovTransitionSpeed;
     public bool isGrounded;
-    public bool hardLanding;
+    [HideInInspector] public bool hardLanding;
 
     [HideInInspector] public Rigidbody characterRigidbody;
     [HideInInspector] public Collider characterCollider;
@@ -89,11 +91,12 @@ public class CharacterStateMachine : MonoBehaviour
         Camera.main.fieldOfView = targetFOV;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            particleMaterial.color = collision.gameObject.GetComponent<Renderer>().material.color;
         }
     }
 

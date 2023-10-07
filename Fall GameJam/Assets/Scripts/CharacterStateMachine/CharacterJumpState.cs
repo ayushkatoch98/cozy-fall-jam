@@ -28,7 +28,6 @@ public class CharacterJumpState : CharacterBaseState
         {
             if (stateMachine.hardLanding)
             {
-                Debug.Log("hard landing!");
                 stateMachine.hardLanding = false;
                 stateMachine.landingParticleSystem.Play();
             }
@@ -83,7 +82,6 @@ public class CharacterJumpState : CharacterBaseState
     private void Jump(float power)
     {
         stateMachine.characterRigidbody.AddForce(Vector3.up * stateMachine.jumpPower * power, ForceMode.Force);
-
         stateMachine.currentAmountOfJumps--;
     }
 }

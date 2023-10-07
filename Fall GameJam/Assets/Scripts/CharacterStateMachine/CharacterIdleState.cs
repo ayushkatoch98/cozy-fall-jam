@@ -8,7 +8,7 @@ public class CharacterIdleState : CharacterBaseState
 
     public override void EnterState()
     {
-        
+
     }
 
     public override void UpdateState()
@@ -20,7 +20,8 @@ public class CharacterIdleState : CharacterBaseState
         {
             stateMachine.ChangeState(new CharacterWalkState(stateMachine));
         }
-        else if (verticalInput != 0 || horizontalInput != 0 && Input.GetKey(stateMachine.sprintKey))
+        
+        if (verticalInput != 0 || horizontalInput != 0 && Input.GetKey(stateMachine.sprintKey))
         {
             stateMachine.ChangeState(new CharacterRunState(stateMachine));
         }
