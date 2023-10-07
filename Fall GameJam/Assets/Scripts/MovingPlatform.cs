@@ -29,7 +29,5 @@ public class MovingPlatform : MonoBehaviour
         if (index >= gameObjects.Count)
             index = 0;
 
-
-
     }
 }
