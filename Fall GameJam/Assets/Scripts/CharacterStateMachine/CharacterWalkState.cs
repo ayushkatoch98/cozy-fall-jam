@@ -12,6 +12,7 @@ public class CharacterWalkState : CharacterBaseState
     public override void UpdateState()
     {
         stateMachine.HandleMoving(stateMachine.walkSpeed);
+        
         float verticalInput = Input.GetAxisRaw("Vertical");
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 

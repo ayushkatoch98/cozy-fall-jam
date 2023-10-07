@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
@@ -43,8 +44,6 @@ public class CharacterStateMachine : MonoBehaviour
     private void Update()
     {
         currentState.UpdateState();
-
-        Debug.Log(currentState);
     }
 
     public void ChangeState(CharacterBaseState newState)
@@ -74,7 +73,7 @@ public class CharacterStateMachine : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeFOV(float startFOV, float targetFOV)
+    public IEnumerator ChangeFOV(float startFOV, float targetFOV)
     {
         float elapsedTime = 0;
 
