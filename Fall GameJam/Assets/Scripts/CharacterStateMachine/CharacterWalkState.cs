@@ -11,7 +11,7 @@ public class CharacterWalkState : CharacterBaseState
 
     public override void UpdateState()
     {
-        stateMachine.HandleMoving(stateMachine.walkSpeed);
+        stateMachine.HandleMoving(stateMachine.walkSpeed, 50);
         float verticalInput = Input.GetAxisRaw("Vertical");
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
@@ -20,7 +20,7 @@ public class CharacterWalkState : CharacterBaseState
             stateMachine.ChangeState(new CharacterRunState(stateMachine));
         }
 
-        if (Input.GetKeyDown(stateMachine.jumpKey))
+        if (Input.GetKeyDown(stateMachine.jumpKey) && stateMachine.isGrounded)
         {
             stateMachine.ChangeState(new CharacterJumpState(stateMachine));
         }

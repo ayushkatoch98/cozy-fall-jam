@@ -11,19 +11,21 @@ public class CharacterRunState : CharacterBaseState
 
     public override void UpdateState()
     {
-        stateMachine.HandleMoving(stateMachine.runSpeed);
+        stateMachine.HandleMoving(stateMachine.runSpeed, 40);
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        if (!Input.GetKey(stateMachine.sprintKey) && stateMachine.characterRigidbody.velocity.magnitude > 0)
+        if (verticalInput != 0 && horizontalInput != 0 && !Input.GetKey(stateMachine.sprintKey))
         {
             stateMachine.ChangeState(new CharacterWalkState(stateMachine));
         }
 
-        if (Input.GetKeyDown(stateMachine.jumpKey))
+        if (Input.GetKeyDown(stateMachine.jumpKey) && stateMachine.isGrounded)
         {
             stateMachine.ChangeState(new CharacterJumpState(stateMachine));
         }
 
-        if (stateMachine.characterRigidbody.velocity.magnitude <= 0.01f)
+        if (verticalInput == 0 && horizontalInput == 0)
         {
             stateMachine.ChangeState(new CharacterIdleState(stateMachine));
         }

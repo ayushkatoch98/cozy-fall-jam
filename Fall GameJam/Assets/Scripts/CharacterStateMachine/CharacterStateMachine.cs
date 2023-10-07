@@ -20,13 +20,12 @@ public class CharacterStateMachine : MonoBehaviour
     public KeyCode crouchKey;
     [Space]
     public ParticleSystem landingParticleSystem;
+    public ParticleSystem jumpParticleSystem;
     public bool isGrounded;
     public bool hardLanding;
 
     [HideInInspector] public Rigidbody characterRigidbody;
     [HideInInspector] public Collider characterCollider;
-
-    private Vector3 velocityXZ;
 
     private void Start()
     {
@@ -34,11 +33,15 @@ public class CharacterStateMachine : MonoBehaviour
         characterCollider = GetComponent<Collider>();
 
         ChangeState(new CharacterIdleState(this));
+
+        currentAmountOfJumps = amountOfJumps;
     }
 
     private void Update()
     {
         currentState.UpdateState();
+
+        Debug.Log(currentState);
     }
 
     public void ChangeState(CharacterBaseState newState)
@@ -52,10 +55,10 @@ public class CharacterStateMachine : MonoBehaviour
         currentState.EnterState();
     }
 
-    public void HandleMoving(float speed)
+    public void HandleMoving(float speed, float acceleration)
     {
-        float verticalInput = Input.GetAxisRaw("Vertical");
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
 
         Vector3 moveDirection = (transform.forward * verticalInput + transform.right * horizontalInput).normalized;
         Vector3 moveSpeed = moveDirection * speed;
@@ -64,7 +67,7 @@ public class CharacterStateMachine : MonoBehaviour
 
         if (currentSpeed < speed)
         {
-            characterRigidbody.AddForce(moveSpeed / 40, ForceMode.VelocityChange);
+            characterRigidbody.AddForce(moveSpeed / acceleration, ForceMode.VelocityChange);
         }
     }
 

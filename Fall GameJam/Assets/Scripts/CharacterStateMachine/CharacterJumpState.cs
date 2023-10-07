@@ -9,22 +9,20 @@ public class CharacterJumpState : CharacterBaseState
 
     public override void EnterState()
     {
-        Jump();
+        stateMachine.isGrounded = false;
+        Jump(1);
     }
 
     public override void UpdateState()
     {
         if (Input.GetKey(stateMachine.sprintKey))
         {
-            stateMachine.HandleMoving(stateMachine.runSpeed);
+            stateMachine.HandleMoving(stateMachine.runSpeed, 15);
         }
         else
         {
-            stateMachine.HandleMoving(stateMachine.walkSpeed);
+            stateMachine.HandleMoving(stateMachine.walkSpeed, 20);
         }
-
-        float verticalInput = Input.GetAxisRaw("Vertical");
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
 
         if (stateMachine.isGrounded)
         {
@@ -35,27 +33,20 @@ public class CharacterJumpState : CharacterBaseState
                 stateMachine.landingParticleSystem.Play();
             }
             stateMachine.currentAmountOfJumps = stateMachine.amountOfJumps;
-
-            if (verticalInput != 0 || horizontalInput != 0)
-            {
-                stateMachine.ChangeState(new CharacterWalkState(stateMachine));
-            }
-            else if ((verticalInput != 0 || horizontalInput != 0) && Input.GetKey(stateMachine.sprintKey))
-            {
-                stateMachine.ChangeState(new CharacterRunState(stateMachine));
-            }
-
-            if (verticalInput == 0 && horizontalInput == 0)
-            {
-                stateMachine.ChangeState(new CharacterIdleState(stateMachine));
-            }
+            HandleStateChanges();
         }
         else if (!stateMachine.isGrounded)
         {
+            Vector3 rbVelocity = stateMachine.characterRigidbody.velocity;
+            if (rbVelocity.y <= -10)
+            {
+                stateMachine.hardLanding = true;
+            }
+
             if (stateMachine.currentAmountOfJumps > 0 && Input.GetKeyDown(stateMachine.jumpKey))
             {
-                Jump();
-                stateMachine.hardLanding = true;
+                stateMachine.jumpParticleSystem.Play();
+                Jump(1.5f);
             }
             else if (stateMachine.currentAmountOfJumps == 0 && Input.GetKey(stateMachine.jumpKey))
             {
@@ -69,9 +60,29 @@ public class CharacterJumpState : CharacterBaseState
         
     }
 
-    private void Jump()
+    private void HandleStateChanges()
     {
-        stateMachine.characterRigidbody.AddForce(Vector3.up * stateMachine.jumpPower, ForceMode.Impulse);
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        
+        if (verticalInput != 0 || horizontalInput != 0)
+        {
+            stateMachine.ChangeState(new CharacterWalkState(stateMachine));
+        }
+        else if ((verticalInput != 0 || horizontalInput != 0) && Input.GetKey(stateMachine.sprintKey))
+        {
+            stateMachine.ChangeState(new CharacterRunState(stateMachine));
+        }
+
+        if (verticalInput == 0 && horizontalInput == 0)
+        {
+            stateMachine.ChangeState(new CharacterIdleState(stateMachine));
+        }
+    }
+
+    private void Jump(float power)
+    {
+        stateMachine.characterRigidbody.AddForce(Vector3.up * stateMachine.jumpPower * power, ForceMode.Force);
 
         stateMachine.currentAmountOfJumps--;
     }

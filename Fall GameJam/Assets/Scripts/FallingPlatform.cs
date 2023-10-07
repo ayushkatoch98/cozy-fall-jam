@@ -4,59 +4,55 @@ using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private float fallSpeed;
+    [Space]
+    [SerializeField] private float fallAfter;
+    [SerializeField] private float destroyAfter;
+    [SerializeField] private float respawnAfter;
+    [Space]
+    [SerializeField] private float shakeAmount;
+    [SerializeField] private float shakeSpeed;
+    
+    private bool startShaking;
+    private float timer;
 
-    [SerializeField] float speed = 10f;
-    [SerializeField] float fallAfter = 2f;
-    [SerializeField] float shakeAmt = 1f;
-    [SerializeField] float shakeSpeed = 1f;
-    public bool startShaking = false;
-
-
-    float timer = 0f;
-
+    private Vector3 tempPos;
+    private Rigidbody rb;
 
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
+
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        tempPos = gameObject.transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
-        if (!startShaking) return;
-
-        
-        timer += Time.deltaTime;
-
-        if (timer > fallAfter)
-        {
-            transform.position = transform.position - (-1f * transform.up) * Time.deltaTime * speed; 
-        }
-        else
-        {
-            Vector3 temp = transform.position;
-            temp.y = Mathf.Sin(Time.time * shakeSpeed) * shakeAmt;
-
-            transform.position = temp;
-
-
-        }
-
-
+        Vector3 gravity = Vector3.down * fallSpeed;
+        rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
+    private IEnumerator StartFalling()
+    {
+        yield return new WaitForSeconds(fallAfter);
+        rb.constraints = RigidbodyConstraints.None;
+        yield return new WaitForSeconds(destroyAfter);
+        gameObject.SetActive(false);
+        //yield return new WaitForSeconds(respawnAfter);
+        //Respawn()
+    }
+
+    private void Respawn()
+    {
+        //gameObject.SetActive(true);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-
-            startShaking = true;
-
+            StartCoroutine(StartFalling());
         }
-
     }
 }

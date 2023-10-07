@@ -3,10 +3,10 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform target;
-    public float rotationSpeed;
-    public float cameraDistance;
-    public float minYAngle;
-    public float maxYAngle;
+    public float mouseSensitivity = 3;
+    public float cameraDistance = 0.1f;
+    public float minYAngle = -89;
+    public float maxYAngle = 89;
 
     private float currentX;
     private float currentY;
@@ -47,8 +47,8 @@ public class CameraController : MonoBehaviour
 
     private void HandleRotation()
     {
-        currentX += Input.GetAxis("Mouse X") * rotationSpeed;
-        currentY -= Input.GetAxis("Mouse Y") * rotationSpeed;
+        currentX += Input.GetAxis("Mouse X") * mouseSensitivity;
+        currentY -= Input.GetAxis("Mouse Y") * mouseSensitivity;
         currentY = Mathf.Clamp(currentY, minYAngle, maxYAngle);
     }
 
