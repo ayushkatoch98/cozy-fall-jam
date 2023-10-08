@@ -3,6 +3,7 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
+using UnityEngine.UI;
 
 public class CharacterStateMachine : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class CharacterStateMachine : MonoBehaviour
     public float walkFOV;
     public float runFOV;
     [SerializeField] private float fovTransitionSpeed;
+    [Space]
+    public Slider glideDurationBar;
     public bool isGrounded;
     [HideInInspector] public bool hardLanding;
     [HideInInspector] public int currentAmountOfJumps;
@@ -46,11 +49,14 @@ public class CharacterStateMachine : MonoBehaviour
         ChangeState(new CharacterIdleState(this));
 
         currentAmountOfJumps = amountOfJumps;
+        currentGlideDuration = maxGlideDuration;
+        glideDurationBar.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         currentState.UpdateState();
+        glideDurationBar.value = currentGlideDuration / maxGlideDuration;
     }
 
     public void ChangeState(CharacterBaseState newState)
@@ -101,7 +107,7 @@ public class CharacterStateMachine : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            particleMaterial.color = collision.gameObject.GetComponent<Renderer>().material.color;
+            particleMaterial.color = collision.gameObject.GetComponent<Renderer>().material.color * 1.5f;
         }
     }
 

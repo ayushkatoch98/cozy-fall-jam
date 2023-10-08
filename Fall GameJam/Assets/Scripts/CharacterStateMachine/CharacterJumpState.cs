@@ -9,8 +9,11 @@ public class CharacterJumpState : CharacterBaseState
 
     public override void EnterState()
     {
-        Jump(1);
-        stateMachine.isGrounded = false;
+        if (stateMachine.isGrounded)
+        {
+            Jump(1);
+            stateMachine.isGrounded = false;
+        }
     }
 
     public override void UpdateState()
