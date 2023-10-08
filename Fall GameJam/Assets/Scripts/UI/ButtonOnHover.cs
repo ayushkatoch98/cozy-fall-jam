@@ -6,25 +6,20 @@ using UnityEngine.UI;
 
 public class ButtonOnHover : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI fkingText;
+    [SerializeField] TextMeshProUGUI text;
+
+    private void Start()
+    {
+        text.color = new Color(1, 0.8f, 0.63f, 1);
+    }
 
     public void onHover()
     {
-        //TextMeshProUGUI buttonText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
-
-        fkingText.color = Color.black;
-
-
+        text.color = new Color(1, 0.6f, 0.23f, 1);
     }
-
 
     public void onHoverExit()
     {
-        //TextMeshProUGUI buttonText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
-
-        fkingText.color = Color.white;
-
-
+        text.color = new Color(1, 0.8f, 0.63f, 1);
     }
-
 }

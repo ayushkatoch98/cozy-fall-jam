@@ -107,7 +107,6 @@ public class CharacterStateMachine : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            particleMaterial.color = collision.gameObject.GetComponent<Renderer>().material.color * 1.5f;
         }
     }
 

@@ -76,3 +76,12 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+*.blend
+*.meta
+*.png
+*.fbx
+*.shader
+*.mat
+*.asset
+*.unity
+Fall GameJam/Assets/WorldObj/Birdhouse.blend1

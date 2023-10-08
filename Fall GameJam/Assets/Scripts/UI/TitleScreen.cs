@@ -6,11 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour
 {
-
     [SerializeField] GameObject titleScreen;
     [SerializeField] GameObject levelScreen;
-
- 
 
     public void startNewGame(string sceneName)
     {
@@ -19,31 +16,21 @@ public class TitleScreen : MonoBehaviour
 
     public void openLevelsUI()
     {
-
-
-        titleScreen.SetActive(false);
+        Debug.Log("opened levels screen");
         levelScreen.SetActive(true);
-        
-
+        titleScreen.SetActive(false);
     }
 
     public void openTitleScreen()
     {
-
-
-        levelScreen.SetActive(false);
+        Debug.Log("opened title screen");
         titleScreen.SetActive(true);
-
-
+        levelScreen.SetActive(false);
     }
 
 
     public void loadLevel(int levelBuildIndex)
     {
-
         SceneManager.LoadScene(levelBuildIndex);
-
     }
-
-
 }

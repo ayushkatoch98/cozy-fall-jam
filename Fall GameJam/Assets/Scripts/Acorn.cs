@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Acorn : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     [SerializeField] Score score;
     [SerializeField] float shakeSpeed = 1f;
     [SerializeField] float shakeAmt = 1f;
@@ -14,9 +12,7 @@ public class Acorn : MonoBehaviour
 
     private void Start()
     {
-
         originalPosition = transform.position;
-        
     }
 
     private void Update()
@@ -26,20 +22,15 @@ public class Acorn : MonoBehaviour
         temp.y += Mathf.Sin(Time.time * shakeSpeed) * shakeAmt;
     
         transform.position = temp;
-
-
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.tag == "Player")
         {
-
             score.increaseScore();
             Destroy(gameObject);
         }
-
     }
 }

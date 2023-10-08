@@ -28,26 +28,9 @@ public class CharacterGlideState : CharacterBaseState
         
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
-
-        if (!stateMachine.isGrounded)
-        {
-            Debug.Log(stateMachine.currentGlideDuration);
-            stateMachine.transform.position = new Vector3(stateMachine.transform.position.x, Mathf.Clamp(stateMachine.transform.position.y, Mathf.NegativeInfinity, tempYPos), stateMachine.transform.position.z);
-            
-            if (!Input.GetKey(stateMachine.jumpKey))
-            {
-                stateMachine.ChangeState(new CharacterJumpState(stateMachine));
-            }
-            else if (Input.GetKey(stateMachine.jumpKey))
-            {
-                stateMachine.currentGlideDuration -= Time.deltaTime;
-            }
-        }
         
         if (stateMachine.isGrounded || stateMachine.currentGlideDuration <= 0)
         {
-            stateMachine.currentGlideDuration = stateMachine.maxGlideDuration;
-            
             if (verticalInput == 0 && horizontalInput == 0)
             {
                 stateMachine.ChangeState(new CharacterIdleState(stateMachine));
@@ -63,7 +46,23 @@ public class CharacterGlideState : CharacterBaseState
                 stateMachine.ChangeState(new CharacterWalkState(stateMachine));
             }
 
+            stateMachine.currentGlideDuration = stateMachine.maxGlideDuration;
         }
+
+        if (!stateMachine.isGrounded)
+        {
+            stateMachine.transform.position = new Vector3(stateMachine.transform.position.x, Mathf.Clamp(stateMachine.transform.position.y, Mathf.NegativeInfinity, tempYPos), stateMachine.transform.position.z);
+            
+            if (!Input.GetKey(stateMachine.jumpKey))
+            {
+                stateMachine.ChangeState(new CharacterJumpState(stateMachine));
+            }
+            else if (Input.GetKey(stateMachine.jumpKey))
+            {
+                stateMachine.currentGlideDuration -= Time.deltaTime;
+            }
+        }
+        
     }
 
     public override void ExitState()
