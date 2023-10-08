@@ -38,4 +38,12 @@ public class TitleScreen : MonoBehaviour
     }
 
 
+    public void loadLevel(int levelBuildIndex)
+    {
+
+        SceneManager.LoadScene(levelBuildIndex);
+
+    }
+
+
 }
