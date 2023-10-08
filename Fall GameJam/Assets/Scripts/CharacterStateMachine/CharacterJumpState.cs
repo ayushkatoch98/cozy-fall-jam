@@ -47,9 +47,9 @@ public class CharacterJumpState : CharacterBaseState
                 stateMachine.jumpParticleSystem.Play();
                 Jump(1.5f);
             }
-            else if (stateMachine.currentAmountOfJumps == 0 && Input.GetKey(stateMachine.jumpKey))
+            else if (stateMachine.currentAmountOfJumps == 0 && Input.GetKeyDown(stateMachine.jumpKey))
             {
-                //stateMachine.ChangeState(new )
+                stateMachine.ChangeState(new CharacterGlideState(stateMachine));
             }
         }
     }

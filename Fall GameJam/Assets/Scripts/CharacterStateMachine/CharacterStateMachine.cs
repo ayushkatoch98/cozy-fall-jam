@@ -11,10 +11,11 @@ public class CharacterStateMachine : MonoBehaviour
     [Header("Stats")]
     public float walkSpeed;
     public float runSpeed;
+    public float glideSpeed;
     public float jumpPower;
     [Space]
     public int amountOfJumps;
-    public int currentAmountOfJumps;
+    public float maxGlideDuration;
 
     [Header("Controls")]
     public KeyCode jumpKey;
@@ -26,9 +27,13 @@ public class CharacterStateMachine : MonoBehaviour
     public ParticleSystem jumpParticleSystem;
     public ParticleSystem runParticleSystem;
     [Space]
-    public float fovTransitionSpeed;
+    public float walkFOV;
+    public float runFOV;
+    [SerializeField] private float fovTransitionSpeed;
     public bool isGrounded;
     [HideInInspector] public bool hardLanding;
+    [HideInInspector] public int currentAmountOfJumps;
+    [HideInInspector] public float currentGlideDuration;
 
     [HideInInspector] public Rigidbody characterRigidbody;
     [HideInInspector] public Collider characterCollider;
@@ -46,7 +51,6 @@ public class CharacterStateMachine : MonoBehaviour
     private void Update()
     {
         currentState.UpdateState();
-        Debug.Log(currentState);
     }
 
     public void ChangeState(CharacterBaseState newState)
@@ -92,7 +96,7 @@ public class CharacterStateMachine : MonoBehaviour
         Camera.main.fieldOfView = targetFOV;
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {

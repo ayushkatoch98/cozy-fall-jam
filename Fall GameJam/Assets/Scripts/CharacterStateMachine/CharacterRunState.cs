@@ -8,8 +8,8 @@ public class CharacterRunState : CharacterBaseState
 
     public override void EnterState()
     {
-        //stateMachine.StopAllCoroutines();
-        //stateMachine.StartCoroutine(stateMachine.ChangeFOV(Camera.main.fieldOfView, 90));
+        stateMachine.StopAllCoroutines();
+        stateMachine.StartCoroutine(stateMachine.ChangeFOV(Camera.main.fieldOfView, stateMachine.runFOV));
         stateMachine.runParticleSystem.Play();
     }
 
@@ -48,8 +48,8 @@ public class CharacterRunState : CharacterBaseState
 
     public override void ExitState()
     {
-        //stateMachine.StopAllCoroutines();
-        //stateMachine.StartCoroutine(stateMachine.ChangeFOV(Camera.main.fieldOfView, 70));
+        stateMachine.StopAllCoroutines();
+        stateMachine.StartCoroutine(stateMachine.ChangeFOV(Camera.main.fieldOfView, stateMachine.walkFOV));
         stateMachine.runParticleSystem.Stop();
     }
 }
