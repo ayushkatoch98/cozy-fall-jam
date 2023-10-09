@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Spikes : MonoBehaviour
 {
@@ -106,6 +107,14 @@ public class Spikes : MonoBehaviour
             startTimer = true;
         }
 
+
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
 
     }
 

@@ -31,7 +31,7 @@ public class ParticlePlayer : MonoBehaviour
         isGrounded = controller.getIsGrounded();
 
         cameraAudioSource = Camera.main.GetComponent<AudioSource>();
-        playerAudioSource = GetComponent<AudioSource>();
+        //playerAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,12 +44,12 @@ public class ParticlePlayer : MonoBehaviour
         if (controller.getIsSpriting() && isGrounded)
         {
             run.Play();
-            playerAudioSource.Play();
+            //playerAudioSource.Play();
         }
         else
         {
             run.Stop();
-            playerAudioSource.Stop();
+            //playerAudioSource.Stop();
         }
 
 
@@ -60,13 +60,13 @@ public class ParticlePlayer : MonoBehaviour
         if (isGrounded)
         {
             jumpEnd.Play();
-            playerAudioSource.PlayOneShot(jumpLandSound);
+            cameraAudioSource.PlayOneShot(jumpLandSound);
         }
 
         else if (isGrounded == false)
         {
             jumpStart.Play();
-            playerAudioSource.PlayOneShot(jumpLandSound);
+            cameraAudioSource.PlayOneShot(jumpLandSound);
         }
 
         
