@@ -8,7 +8,8 @@ public class Spikes : MonoBehaviour
 
     [SerializeField] float downSpeed = 10f;
     [SerializeField] float upSpeed = 100f;
-    [SerializeField] float interval = 2f;
+    [SerializeField] float downInterval = 2f;
+    [SerializeField] float upInterval = 7f;
     
 
     enum Direction // your custom enumeration
@@ -33,6 +34,8 @@ public class Spikes : MonoBehaviour
     Vector3 temp;
     float tempSpeed;
 
+    float interval;
+
     void Start(){
             
         if (spikeDirection == Direction.UP)
@@ -55,7 +58,8 @@ public class Spikes : MonoBehaviour
         
         openPosition = transform.position;
         closePosition = openPosition + (closeDirection * 2f);
-
+        closePosition.y = -3f;
+        interval = downInterval;
     }
 
     // Update is called once per frame
@@ -91,6 +95,14 @@ public class Spikes : MonoBehaviour
         if (Vector3.Distance(transform.position, temp) <= 0.01f)
         {
             isClosing = !isClosing;
+            if (isClosing)
+            {
+                interval = downInterval;
+            }
+            else
+            {
+                interval = upInterval;
+            }
             startTimer = true;
         }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
@@ -28,6 +29,31 @@ public class MovingPlatform : MonoBehaviour
 
         if (index >= gameObjects.Count)
             index = 0;
+
+    }
+
+  
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+        if (collision.gameObject.tag == "Player")
+        {
+
+            collision.gameObject.transform.SetParent(transform);
+
+        }
+
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+
+        if (collision.gameObject.tag == "Player")
+        {
+
+            collision.gameObject.transform.SetParent(null);
+
+        }
 
     }
 }

@@ -452,6 +452,7 @@ public class FirstPersonController : MonoBehaviour
         {
             Debug.DrawRay(origin, direction * distance, Color.red);
             isGrounded = true;
+            //landParticle.Play();
         }
         else
         {
@@ -464,6 +465,7 @@ public class FirstPersonController : MonoBehaviour
         // Adds force to the player rigidbody to jump
         if (isGrounded)
         {
+            //jumpParticle.Play();
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
         }

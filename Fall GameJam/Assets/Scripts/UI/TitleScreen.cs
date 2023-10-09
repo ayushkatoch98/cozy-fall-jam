@@ -9,9 +9,8 @@ public class TitleScreen : MonoBehaviour
     [SerializeField] GameObject titleScreen;
     [SerializeField] GameObject levelScreen;
 
-    public void startNewGame(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
+    public void startNewGame(string sceneName){
+        SceneManager.LoadScene(1);
     }
 
     public void openLevelsUI()
