@@ -131,6 +131,16 @@ public class FirstPersonController : MonoBehaviour
 
     #endregion
 
+
+    public bool getIsGrounded()
+    {
+        return isGrounded;
+    }
+
+    public bool getIsSpriting()
+    {
+        return isSprinting;
+    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();

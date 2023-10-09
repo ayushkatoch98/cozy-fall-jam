@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2374269837344116448}
   - component: {fileID: 2017418968092961712}
   - component: {fileID: 7184687039700012624}
+  - component: {fileID: 1214177621929819489}
   m_Layer: 0
   m_Name: island_yellow_1
   m_TagString: Ground
@@ -27,11 +28,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3965476594054645189}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.9, z: 25.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4107454342966448107}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2374269837344116448
@@ -106,3 +108,81 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300044, guid: 3dff5c602fa2a3a45b81246f45003770, type: 3}
+--- !u!114 &1214177621929819489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965476594054645189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 690f792017f59814a92a1d6c228a73ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  speed: 10
+--- !u!1001 &6022068438979451097
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7832618830652391244}
+    m_Modifications:
+    - target: {fileID: 7050917432610835848, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_Name
+      value: Acorn (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+--- !u!4 &4107454342966448107 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7679258179469874994, guid: 3dc86e12126d69f40b526357bb60beac, type: 3}
+  m_PrefabInstance: {fileID: 6022068438979451097}
+  m_PrefabAsset: {fileID: 0}

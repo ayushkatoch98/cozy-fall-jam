@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c155cca266692444eb21a381fea70c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 0}
+  score: {fileID: 653550057509469630, guid: 8c7eb3d82af455740a9a3f7e6268c137, type: 3}
   shakeSpeed: 1
   shakeAmt: 1
 --- !u!54 &961403058368238468
